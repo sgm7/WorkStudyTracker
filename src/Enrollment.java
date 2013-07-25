@@ -58,6 +58,7 @@ public class Enrollment
    public String toString()
    {
       return this.emplID + ", " +
-             String.valueOf(this.units);
+             String.valueOf(this.units) + ", "+
+             this.term;
    }
 }//end of class Enrollment
