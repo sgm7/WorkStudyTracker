@@ -168,7 +168,8 @@ public class Disbursement implements Comparable
     }
 
   /**
-   * A comparison method for disbursements.
+   * A comparison method for disbursements.  Compares disbursements based on
+   * the pay period.
    * @param o The disbursement to be compared to.
    * @return int
    */
