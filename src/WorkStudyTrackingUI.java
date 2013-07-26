@@ -26,17 +26,19 @@ public class WorkStudyTrackingUI extends javax.swing.JFrame {
          * displayed components for readability.
          */
         ds = new DataFileStream();
-        editedDisbursements = new Vector<Disbursement>();
-        editedDisbursementsLocation = new Vector<Integer>();
-        disbursements = ds.readDisbursements();
+        students = ds.readStudents();
+        awards = ds.readAwards();
+        enrollments = ds.readEnrollments();
 
         // Sort the disbursements by pay period. This is necessary
         // for proper functionality later, when constructing the
         // editedDisbursements vector.
+        disbursements = ds.readDisbursements();
         Collections.sort(disbursements);
-        students = ds.readStudents();
-        awards = ds.readAwards();
-        enrollments = ds.readEnrollments();
+
+        editedDisbursements = new Vector<Disbursement>();
+        editedDisbursementsLocation = new Vector<Integer>();
+
         nextInsertIndex = 0;
         visCount = 0;
         invisCount = 0;
@@ -129,8 +131,9 @@ public class WorkStudyTrackingUI extends javax.swing.JFrame {
 
         // set up input validation for editable fields
         try {
-            department.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
-                (new javax.swing.text.MaskFormatter("D#####")));
+            department.setFormatterFactory(
+                new javax.swing.text.DefaultFormatterFactory(
+                    new javax.swing.text.MaskFormatter("D#####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -195,98 +198,124 @@ public class WorkStudyTrackingUI extends javax.swing.JFrame {
         });
 
         // lay out components
-        javax.swing.GroupLayout dataEntryTabLayout = new javax.swing.GroupLayout(dataEntryTab);
+        GroupLayout dataEntryTabLayout =
+            new GroupLayout(dataEntryTab);
         dataEntryTab.setLayout(dataEntryTabLayout);
         dataEntryTabLayout.setHorizontalGroup(
-            dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            dataEntryTabLayout.createParallelGroup(
+                GroupLayout.Alignment.LEADING)
                 .addGroup(dataEntryTabLayout.createSequentialGroup()
                     .addGap(34, 34, 34)
-                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dataEntryTabLayout.createParallelGroup(
+                        GroupLayout.Alignment.LEADING)
                         .addGroup(dataEntryTabLayout.createSequentialGroup()
-                            .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(dataEntryTabLayout.createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
+                                .addComponent(
+                                    editButton,
+                                    GroupLayout.PREFERRED_SIZE,
+                                    65,
+                                    GroupLayout.PREFERRED_SIZE)
+                                .addComponent(
+                                    deleteButton,
+                                    GroupLayout.PREFERRED_SIZE,
+                                    65,
+                                    GroupLayout.PREFERRED_SIZE)
+                                .addComponent(exitButton,
+                                    GroupLayout.PREFERRED_SIZE,
+                                    65,
+                                    GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(
+                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(disbursementListPane))
                         .addGroup(dataEntryTabLayout.createSequentialGroup()
-                            .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(dataEntryTabLayout.createParallelGroup(
+                                GroupLayout.Alignment.TRAILING)
                                 .addComponent(periodLabel)
                                 .addComponent(termLabel)
                                 .addComponent(amountLabel)
                                 .addComponent(departmentLabel)
                                 .addComponent(hsuIDLabel))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addPreferredGap(
+                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(dataEntryTabLayout.createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
                                 .addComponent(term)
                                 .addComponent(amount)
                                 .addComponent(period)
                                 .addComponent(department)
-                                .addComponent(hsuID, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                                .addComponent(hsuID,
+                                    GroupLayout.DEFAULT_SIZE,
+                                    161,
+                                    Short.MAX_VALUE))
                             .addGap(8, 8, 8)
-                            .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(dataEntryTabLayout.createSequentialGroup()
+                            .addGroup(dataEntryTabLayout.createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
+                                .addGroup(
+                                    dataEntryTabLayout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
                                     .addComponent(submitButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addPreferredGap(
+                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(clearButton))
-                                .addGroup(dataEntryTabLayout.createSequentialGroup()
+                                .addGroup(
+                                    dataEntryTabLayout.createSequentialGroup()
                                     .addGap(34, 34, 34)
-                                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(itemTypeLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(enrollmentLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(awardAmountLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(studentNameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addGroup(dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(itemTypeLabel, GroupLayout.Alignment.TRAILING)
+                                        .addComponent(enrollmentLabel, GroupLayout.Alignment.TRAILING)
+                                        .addComponent(awardAmountLabel, GroupLayout.Alignment.TRAILING)
+                                        .addComponent(studentNameLabel, GroupLayout.Alignment.TRAILING))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(awardAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                                        .addComponent(itemType, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(awardAmount, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                        .addComponent(itemType, GroupLayout.Alignment.TRAILING)
                                         .addComponent(enrollment)
-                                        .addComponent(studentName, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                                        .addComponent(studentName, GroupLayout.Alignment.TRAILING))))))
                     .addGap(25, 25, 25))
         );
         dataEntryTabLayout.setVerticalGroup(
-            dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(dataEntryTabLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(hsuIDLabel)
-                        .addComponent(hsuID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hsuID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(studentNameLabel)
-                        .addComponent(studentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(studentName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(departmentLabel)
-                        .addComponent(department, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(department, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(itemTypeLabel)
-                        .addComponent(itemType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(itemType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(5, 5, 5)
-                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(amountLabel)
-                        .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(amount, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(awardAmountLabel)
-                        .addComponent(awardAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(awardAmount, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(periodLabel)
-                        .addComponent(period, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(period, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(enrollmentLabel)
-                        .addComponent(enrollment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(enrollment, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(termLabel)
-                        .addComponent(term, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(term, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(submitButton)
                         .addComponent(clearButton))
                     .addGap(18, 18, 18)
-                    .addGroup(dataEntryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dataEntryTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(dataEntryTabLayout.createSequentialGroup()
                             .addComponent(editButton)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(deleteButton)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 25, 10000)
                             .addComponent(exitButton))
-                        .addComponent(disbursementListPane, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                        .addComponent(disbursementListPane, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                     .addGap(25, 25, 25))
         );
 
@@ -296,34 +325,34 @@ public class WorkStudyTrackingUI extends javax.swing.JFrame {
         populateSummaryTable();
         summaryTab.addComponentListener(new SummaryTabSelected());
 
-        javax.swing.GroupLayout summaryTabLayout = new javax.swing.GroupLayout(summaryTab);
+        GroupLayout summaryTabLayout = new GroupLayout(summaryTab);
         summaryTab.setLayout(summaryTabLayout);
         summaryTabLayout.setHorizontalGroup(
-            summaryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            summaryTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(summaryTabLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(summaryScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(summaryScrollPane, GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                     .addContainerGap())
         );
         summaryTabLayout.setVerticalGroup(
-            summaryTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            summaryTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(summaryTabLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(summaryScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                    .addComponent(summaryScrollPane, GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                     .addContainerGap())
         );
 
         jTabbedPane1.addTab("Summary", summaryTab);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(jTabbedPane1, GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(jTabbedPane1, GroupLayout.Alignment.TRAILING)
         );
 
         pack();
