@@ -34,6 +34,9 @@ public class Enrollment
         this.term = term;
    }
 
+    /*
+    Empty constructor.
+     */
     public Enrollment()
     {
         this.emplID = "";
