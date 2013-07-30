@@ -10,7 +10,8 @@ import java.io.*;
 
 
 /**
- * Manages preferences and.. that's all, since the db is gone. yay hours of pointless unusable work.
+ * Manages preferences and.. that's all, since the db is gone. yay hours of
+ * pointless unusable work.
  */
 
 public class GlobalsManager

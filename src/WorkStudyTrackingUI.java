@@ -730,6 +730,8 @@ public class WorkStudyTrackingUI extends javax.swing.JFrame {
         summaryTableColumns.add("# Disbursements");
         summaryTableColumns.add("Total");
 
+        new DisbursementSummaryTable(disbursements, students, awards);
+
         // Set row data.
         Vector<Vector<String>> summaryTableRows = new Vector<Vector<String>>();
 
@@ -851,28 +853,6 @@ public class WorkStudyTrackingUI extends javax.swing.JFrame {
         disbursementTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         disbursementListPane.setViewportView(disbursementTable);
     }
-
-    /*
-    private Vector<String> renderDisbursements(Vector<Disbursement> dv) {
-        Vector<String> renderedDisbursements = new Vector<String>();
-        Iterator<Disbursement> disbursementIterator = dv.iterator();
-        Disbursement d;
-
-        while (disbursementIterator.hasNext()) {
-            d = disbursementIterator.next();
-            renderedDisbursements.add(
-                String.format("%1$-10s", d.getEmplID()) +
-                    String.format("$%1$-7s", d.getAmount()) +
-                    String.format("%1$-7s", d.getDepartment()) +
-                    String.format("%1$-13s", d.getItemType()) +
-                    String.format("%1$-5s", d.getTerm()) +
-                    String.format("%1$-7s", d.getPayPeriod())
-            );
-        }
-
-        return renderedDisbursements;
-    }
-    */
 
     /**
      * Adapted from
